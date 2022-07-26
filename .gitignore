@@ -1,0 +1,5 @@
+vendor.log
+.vscode
+.env
+.vscode
+/postgres

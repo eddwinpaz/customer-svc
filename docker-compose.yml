@@ -1,0 +1,13 @@
+version: '2'
+services:
+  postgres:
+    image: 'postgres:latest'
+    restart: always
+    volumes:
+      - '/home/eddwinpaz/Documents/postgresql:/var/lib/postgresql/data'
+    environment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=realstate
+      - POSTGRES_USER=root
+    ports:
+      - '5432:5432'
