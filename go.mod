@@ -1,8 +1,11 @@
-module github.com/eddwinpaz/customer-svc
+module github.com/eddwinpaz/text-svc
 
 go 1.17
 
-require github.com/sirupsen/logrus v1.8.1
+require (
+	github.com/eddwinpaz/customer-svc v0.0.0-20220726233140-2c00e9f41c51
+	github.com/sirupsen/logrus v1.8.1
+)
 
 require github.com/felixge/httpsnoop v1.0.1 // indirect
 

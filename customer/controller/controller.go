@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/eddwinpaz/customer-svc/customer/entity"
@@ -135,8 +136,8 @@ func (svc ServiceImpl) GetCustomerByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// customerCtx := r.Context().Value(entity.ContextCustomerKey).(*entity.Customer) // Get Customer from Context
-	// fmt.Println(customerCtx)                                               // Send this context value to service and check in repository if customer record belongs to same customer
+	customerCtx := r.Context().Value(entity.ContextCustomerKey).(*entity.Customer) // Get Customer from Context
+	fmt.Println(customerCtx)                                                       // Send this context value to service and check in repository if customer record belongs to same customer
 
 	// Get Customer
 	customer, err := svc.GetServiceCustomer.GetCustomerByID(customer_id)

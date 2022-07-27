@@ -1,11 +1,11 @@
-CREATE TABLE public."content" (
+CREATE TABLE public."text" (
 	id serial4 NOT NULL,
-	content_uuid bpchar(255) NOT NULL,
+	text_uuid bpchar(255) NOT NULL,
 	"text" int4 NOT NULL,
 	customer_id int4 NOT NULL,
 	created_on timestamp(0) NOT NULL,
 	updated_on timestamp(0) NOT NULL,
-	CONSTRAINT content_pkey PRIMARY KEY (id)
+	CONSTRAINT text_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE public.customer (

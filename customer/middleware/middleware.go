@@ -6,6 +6,7 @@ import (
 
 	"github.com/eddwinpaz/customer-svc/customer/controller"
 	"github.com/eddwinpaz/customer-svc/customer/entity"
+	log "github.com/sirupsen/logrus"
 )
 
 func JwtAuthentication(next http.Handler) http.Handler {
@@ -27,6 +28,8 @@ func JwtAuthentication(next http.Handler) http.Handler {
 		}
 
 		ctx := context.WithValue(r.Context(), entity.ContextCustomerKey, claims.Customer)
+		log.Info("JwtAuthentication executed...")
+		log.Info(claims.Customer)
 
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
