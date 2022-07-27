@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/eddwinpaz/customer-svc/customer/controller"
@@ -30,6 +31,8 @@ func JwtAuthentication(next http.Handler) http.Handler {
 		ctx := context.WithValue(r.Context(), entity.ContextCustomerKey, claims.Customer)
 		log.Info("JwtAuthentication executed...")
 		log.Info(claims.Customer)
+		fmt.Printf("JwtAuthentication executed...")
+		fmt.Printf("%s", claims.Customer)
 
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
