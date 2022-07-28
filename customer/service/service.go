@@ -17,18 +17,18 @@ func (rep RepositoryImpl) AuthenticateCustomer(email string, password string) (*
 	return rep.GetRespositoryCustomer.AuthenticateCustomer(email, password)
 }
 
-func (rep RepositoryImpl) UpdateCustomerByID(id string, customer entity.Customer) bool {
-	return rep.GetRespositoryCustomer.UpdateCustomerByID(id, customer)
+func (rep RepositoryImpl) UpdateCustomerByID(customer entity.Customer) bool {
+	return rep.GetRespositoryCustomer.UpdateCustomerByID(customer)
 }
 
 func (rep RepositoryImpl) SaveCustomer(customer entity.Customer) bool {
 	return rep.GetRespositoryCustomer.SaveCustomer(customer)
 }
 
-func (rep RepositoryImpl) GetCustomerByID(id string) (*entity.Customer, error) {
-	return rep.GetRespositoryCustomer.GetCustomerByID(id)
+func (rep RepositoryImpl) GetCustomerByID(customer_uuid string) (*entity.Customer, error) {
+	return rep.GetRespositoryCustomer.GetCustomerByID(customer_uuid)
 }
 
-func (rep RepositoryImpl) DeleteCustomerByID(id string) bool {
-	return rep.GetRespositoryCustomer.DeleteCustomerByID(id)
+func (rep RepositoryImpl) DeleteCustomerByID(customer_uuid string) bool {
+	return rep.GetRespositoryCustomer.DeleteCustomerByID(customer_uuid)
 }

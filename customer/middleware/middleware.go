@@ -2,12 +2,10 @@ package middleware
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 
 	"github.com/eddwinpaz/customer-svc/customer/controller"
 	"github.com/eddwinpaz/customer-svc/customer/entity"
-	log "github.com/sirupsen/logrus"
 )
 
 func JwtAuthentication(next http.Handler) http.Handler {
@@ -22,18 +20,12 @@ func JwtAuthentication(next http.Handler) http.Handler {
 		}
 
 		claims, err := credentials.ValidateJwtToken(authorization_token)
+		ctx := context.WithValue(r.Context(), entity.ContextCustomerKey, claims.Customer)
 
 		if err != nil {
 			controller.Response(false, entity.ErrInvalidAuthorizationToken.Error(), err, w, http.StatusBadRequest)
 			return
 		}
-
-		ctx := context.WithValue(r.Context(), entity.ContextCustomerKey, claims.Customer)
-		log.Info("JwtAuthentication executed...")
-		log.Info(claims.Customer)
-		fmt.Printf("JwtAuthentication executed...")
-		fmt.Printf("%s", claims.Customer)
-
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }

@@ -64,8 +64,8 @@ func (repository *PostgresCustomerRespository) AuthenticateCustomer(email string
 			  			  WHERE email = '%s' AND password = '%s'`, email, password)
 
 	row := repository.db.QueryRow(query)
-	err := row.Scan(&customer.CustomerID, &customer.FirstName, &customer.LastName, &customer.Email, 
-					&customer.Password, &customer.CreatedOn, &customer.LastLogin)
+	err := row.Scan(&customer.CustomerID, &customer.FirstName, &customer.LastName, &customer.Email,
+		&customer.Password, &customer.CreatedOn, &customer.LastLogin)
 
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -76,10 +76,10 @@ func (repository *PostgresCustomerRespository) AuthenticateCustomer(email string
 	return customer, nil
 }
 
-func (repository *PostgresCustomerRespository) UpdateCustomerByID(customer_id string, customer entity.Customer) bool {
+func (repository *PostgresCustomerRespository) UpdateCustomerByID(customer entity.Customer) bool {
 
-	query := fmt.Sprintf(`UPDATE customer SET first_name='%s', last_name='%s' WHERE customer_uuid = '%s'`, 
-	customer.FirstName, customer.LastName, customer_id)
+	query := fmt.Sprintf(`UPDATE customer SET first_name='%s', last_name='%s' WHERE customer_uuid = '%s'`,
+		customer.FirstName, customer.LastName, customer.CustomerID)
 	result, err := repository.db.Exec(query)
 
 	if err != nil {
@@ -94,8 +94,8 @@ func (repository *PostgresCustomerRespository) UpdateCustomerByID(customer_id st
 func (repository *PostgresCustomerRespository) SaveCustomer(customer entity.Customer) bool {
 
 	query := fmt.Sprintf(`INSERT INTO customer (customer_uuid,first_name, last_name, email, "password", created_on, last_login) 
-						  VALUES('%s','%s', '%s', '%s', '%s', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);`, 
-						  customer.CustomerID, customer.FirstName, customer.LastName, customer.Email, customer.Password)
+						  VALUES('%s','%s', '%s', '%s', '%s', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);`,
+		customer.CustomerID, customer.FirstName, customer.LastName, customer.Email, customer.Password)
 
 	result, err := repository.db.Exec(query)
 	log.Infof("Executing Query: SaveCustomer")

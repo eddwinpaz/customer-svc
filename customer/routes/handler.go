@@ -23,7 +23,7 @@ func Handlers(controllers controller.ServiceImpl) http.Handler {
 	// Authenticated endpoints
 	authenticated := route.NewRoute().Subrouter()
 	authenticated.HandleFunc("/api/customer/{id}", controllers.GetCustomerByID).Methods("GET")
-	authenticated.HandleFunc("/api/customer/{id}", controllers.UpdateCustomerByID).Methods("PUT")
+	authenticated.HandleFunc("/api/customer", controllers.UpdateCustomerByID).Methods("PUT")
 	// authenticated.HandleFunc("/api/customer", controllers.SaveCustomer).Methods("POST")
 	authenticated.HandleFunc("/api/customer/{id}", controllers.DeleteCustomerByID).Methods("DELETE")
 	authenticated.Use(middleware.JwtAuthentication)

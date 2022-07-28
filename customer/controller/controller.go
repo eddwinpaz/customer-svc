@@ -2,7 +2,6 @@ package controller
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/eddwinpaz/customer-svc/customer/entity"
@@ -72,24 +71,18 @@ func (svc ServiceImpl) UpdateCustomerByID(w http.ResponseWriter, r *http.Request
 
 	var customer entity.Customer
 
-	// Get Customer ID
-	params := mux.Vars(r)
-	customer_id := params["id"]
-
-	// validate param ID
-	if customer_id == "" {
-		Response(false, entity.ErrBadParamInput.Error(), nil, w, http.StatusBadRequest)
-		return
-	}
-
 	err := json.NewDecoder(r.Body).Decode(&customer)
 	if err != nil {
 		Response(false, entity.ErrInvalidJSON.Error(), nil, w, http.StatusNotFound)
 		return
 	}
 
+	customerCtx := r.Context().Value(entity.ContextCustomerKey).(*entity.Customer) // Get Customer from Context
+
 	// Get Customer
-	isSaved := svc.GetServiceCustomer.UpdateCustomerByID(customer_id, customer)
+	customer.CustomerID = customerCtx.CustomerID
+
+	isSaved := svc.GetServiceCustomer.UpdateCustomerByID(customer)
 
 	// Return Error Response
 	if !isSaved {
@@ -136,8 +129,7 @@ func (svc ServiceImpl) GetCustomerByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	customerCtx := r.Context().Value(entity.ContextCustomerKey).(*entity.Customer) // Get Customer from Context
-	fmt.Println(customerCtx)                                                       // Send this context value to service and check in repository if customer record belongs to same customer
+	// customerCtx := r.Context().Value(entity.ContextCustomerKey).(*entity.Customer) // Get Customer from Context
 
 	// Get Customer
 	customer, err := svc.GetServiceCustomer.GetCustomerByID(customer_id)
